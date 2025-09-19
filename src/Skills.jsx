@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./Skills.css";
+import "./skills.css";
 
 const skillsData = [
   { name: "React", percentage: 90 },
