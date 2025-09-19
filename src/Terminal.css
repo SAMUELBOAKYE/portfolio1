@@ -1,0 +1,453 @@
+/* =========================================
+   Root Variables (Global Color Scheme)
+   ========================================= */
+:root {
+  --terminal-bg: #0e0e0e;
+  --terminal-text: #00ff88;
+  --terminal-accent: #00ff8855;
+  --terminal-prompt: #4ec9b0;
+  --terminal-output: #ffffff;
+  --terminal-scrollbar: #00ff88;
+  --terminal-error: #ff5555;
+  --terminal-success: #55ff55;
+  --terminal-directory: #4ec9b0;
+  --terminal-file: #9cdcfe;
+  --terminal-highlight: #ffaa00;
+}
+
+/* =========================================
+   Profile Image Container
+   ========================================= */
+.profile-image-container {
+  position: relative;
+  z-index: 50; /* Sits above most content but below overlays */
+}
+
+/* =========================================
+   Terminal Structure
+   ========================================= */
+.terminal-container {
+  height: 100%;
+  width: 100%;
+  padding: 1rem;
+}
+
+.terminal-wrapper {
+  background: var(--terminal-bg);
+  color: var(--terminal-text);
+  font-family: "Fira Code", "Consolas", monospace;
+  padding: 2rem;
+  height: 100%;
+  width: 100%;
+  max-height: 70vh;
+  overflow-y: auto;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 255, 136, 0.1);
+  position: relative;
+  line-height: 1.6;
+  scrollbar-width: thin;
+  scrollbar-color: var(--terminal-scrollbar) transparent;
+  box-shadow: inset 0 0 30px var(--terminal-accent), 0 0 20px rgba(0, 0, 0, 0.8);
+  background-image: linear-gradient(
+      rgba(0, 255, 136, 0.03) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+  background-size: 10px 10px;
+  animation: terminalFlicker 0.01s infinite alternate;
+}
+
+/* =========================================
+   Scrollbar Styling
+   ========================================= */
+.terminal-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+.terminal-wrapper::-webkit-scrollbar-thumb {
+  background: var(--terminal-scrollbar);
+  border-radius: 4px;
+}
+.terminal-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* =========================================
+   Theme Variants
+   ========================================= */
+.terminal-wrapper.light {
+  --terminal-bg: #ffffff;
+  --terminal-text: #000000;
+  --terminal-accent: rgba(0, 0, 0, 0.1);
+  --terminal-prompt: #333333;
+  --terminal-output: #111111;
+  --terminal-scrollbar: #555555;
+}
+
+.terminal-wrapper.dark {
+  --terminal-bg: #000000;
+  --terminal-text: #ffffff;
+  --terminal-accent: rgba(255, 255, 255, 0.1);
+  --terminal-prompt: #4ec9b0;
+  --terminal-output: #ffffff;
+  --terminal-scrollbar: #888888;
+}
+
+.terminal-wrapper.hacker {
+  --terminal-bg: #000000;
+  --terminal-text: #00ff00;
+  --terminal-accent: rgba(0, 255, 0, 0.2);
+  --terminal-prompt: #00ff00;
+  --terminal-output: #00ff00;
+  --terminal-scrollbar: #00ff00;
+  text-shadow: 0 0 5px #00ff00;
+  animation: crt-flicker 1.5s infinite;
+}
+
+.terminal-wrapper.matrix {
+  --terminal-bg: #000000;
+  --terminal-text: #00ff00;
+  --terminal-accent: rgba(0, 255, 0, 0.2);
+  --terminal-prompt: #00ff00;
+  --terminal-output: #ffffff;
+  --terminal-scrollbar: #00ff00;
+  position: relative;
+}
+.terminal-wrapper.matrix::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 255, 0, 0.2) 0px,
+    rgba(0, 255, 0, 0.2) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  animation: matrix-rain 0.3s linear infinite;
+  pointer-events: none;
+}
+
+/* =========================================
+   Terminal Lines & Input
+   ========================================= */
+.terminal-line {
+  display: flex;
+  align-items: flex-start;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  animation: fadeIn 0.3s ease-out forwards;
+  position: relative;
+  z-index: 2;
+}
+
+.terminal-line.input .prompt {
+  color: var(--terminal-prompt);
+  margin-right: 8px;
+  position: relative;
+}
+.terminal-line.input .prompt::after {
+  content: "▋";
+  position: absolute;
+  right: -8px;
+  animation: blink-cursor 1.2s step-end infinite;
+  color: var(--terminal-text);
+}
+
+.terminal-line.output pre {
+  color: var(--terminal-output);
+  margin: 0;
+}
+
+.terminal-input {
+  background: transparent;
+  border: none;
+  color: var(--terminal-text);
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  flex: 1;
+  caret-color: var(--terminal-text);
+}
+
+/* =========================================
+   Skills Section
+   ========================================= */
+.skills-container {
+  margin-top: 1rem;
+  font-family: "Fira Code", monospace;
+}
+.skills-category {
+  margin-bottom: 1.5rem;
+}
+.category-title {
+  color: var(--terminal-prompt);
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid rgba(0, 255, 136, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.skill {
+  margin-bottom: 1rem;
+  color: var(--terminal-output);
+  display: flex;
+  flex-direction: column;
+}
+.skill-bar-container {
+  width: 100%;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+}
+.skill-bar {
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--terminal-text),
+    var(--terminal-prompt)
+  );
+  border-radius: 6px;
+  width: 0;
+  animation: skillGrow 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.skill-percent {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7rem;
+  font-weight: bold;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+}
+
+/* =========================================
+   Effects & Animations
+   ========================================= */
+.terminal-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+  background-size: 100% 2px;
+  pointer-events: none;
+  z-index: 1;
+  animation: scanline 6s linear infinite;
+}
+
+.terminal-glitch {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  mix-blend-mode: overlay;
+  animation: glitch 10s infinite alternate;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes blink-cursor {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+@keyframes terminalFlicker {
+  0% {
+    opacity: 0.99;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes scanline {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+@keyframes skillGrow {
+  from {
+    width: 0;
+  }
+  to {
+    width: var(--percent);
+  }
+}
+@keyframes glitch {
+  0%,
+  100% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+}
+@keyframes crt-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.97;
+  }
+}
+@keyframes matrix-rain {
+  from {
+    background-position-y: 0;
+  }
+  to {
+    background-position-y: 4px;
+  }
+}
+
+/* =========================================
+   Power Button
+   ========================================= */
+.power-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff5555;
+  box-shadow: 0 0 5px #ff5555;
+  animation: powerPulse 2s infinite;
+  z-index: 10;
+}
+@keyframes powerPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 5px #ff5555;
+  }
+  50% {
+    box-shadow: 0 0 15px #ff5555;
+  }
+}
+
+/* =========================================
+   Enhanced Mobile Responsiveness
+   ========================================= */
+@media (max-width: 768px) {
+  .terminal-container {
+    padding: 0.5rem;
+    height: 55vh;
+  }
+
+  .terminal-wrapper {
+    padding: 1.2rem;
+    font-size: 0.9rem;
+    background-size: 5px 5px;
+    max-height: 100%;
+  }
+
+  .terminal-line {
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+  }
+
+  .terminal-input {
+    font-size: 0.85rem;
+  }
+
+  .skills-category {
+    margin-bottom: 1rem;
+  }
+
+  .category-title {
+    font-size: 0.95rem;
+  }
+
+  .skill {
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .skill-bar-container {
+    height: 10px;
+  }
+
+  .skill-percent {
+    font-size: 0.6rem;
+  }
+}
+
+/* iPhone notch safe area support */
+@supports (padding: max(0px)) {
+  .terminal-container {
+    padding-left: max(0.5rem, env(safe-area-inset-left));
+    padding-right: max(0.5rem, env(safe-area-inset-right));
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* Small phone adjustments */
+@media (max-width: 380px) {
+  .terminal-wrapper {
+    padding: 1rem;
+  }
+
+  .terminal-line {
+    font-size: 0.8rem;
+  }
+
+  .terminal-input {
+    font-size: 0.8rem;
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .terminal-wrapper {
+    animation: none;
+  }
+
+  .terminal-glitch {
+    animation: none;
+  }
+
+  .skill-bar {
+    animation: none;
+    width: var(--percent);
+  }
+
+  .terminal-line {
+    animation: none;
+  }
+
+  .terminal-wrapper::before {
+    animation: none;
+  }
+
+  .power-button {
+    animation: none;
+  }
+}
