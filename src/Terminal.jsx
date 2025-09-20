@@ -16,10 +16,9 @@ const Terminal = ({ onProjectHover, isMobile }) => {
 
   const terminalRef = useRef(null);
   const inputRef = useRef(null);
-  const matrixCanvasRef = useRef(null);
 
   const prompt = "sammyPort ~ $ ";
-  const availableThemes = ["light", "dark", "hacker", "matrix"];
+  const availableThemes = ["light", "dark", "hacker"];
 
   // Skills data
   const skillsData = {
@@ -91,10 +90,6 @@ const Terminal = ({ onProjectHover, isMobile }) => {
     hacker: {
       description: "Switch to hacker mode",
       execute: () => changeTheme(["hacker"]),
-    },
-    matrix: {
-      description: "Switch to matrix mode",
-      execute: () => changeTheme(["matrix"]),
     },
   };
 
@@ -207,50 +202,6 @@ He enjoys turning ideas into reality with world-class frontend development.`;
     return `Available themes: ${availableThemes.join(", ")}`;
   };
 
-  // ==== MATRIX EFFECT ====
-  useEffect(() => {
-    if (theme === "matrix") {
-      const canvas = matrixCanvasRef.current;
-      const ctx = canvas.getContext("2d");
-
-      const resize = () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      };
-      resize();
-      window.addEventListener("resize", resize);
-
-      const letters =
-        "アァイィウヴエェオカガキギクグケゲコゴABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-      const fontSize = 14;
-      const columns = canvas.width / fontSize;
-      const drops = Array(Math.floor(columns)).fill(1);
-
-      const draw = () => {
-        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "rgba(250, 8, 37, 1)";
-        ctx.font = `${fontSize}px monospace`;
-
-        for (let i = 0; i < drops.length; i++) {
-          const text = letters.charAt(
-            Math.floor(Math.random() * letters.length)
-          );
-          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975)
-            drops[i] = 0;
-          drops[i]++;
-        }
-      };
-
-      const interval = setInterval(draw, 35);
-      return () => {
-        clearInterval(interval);
-        window.removeEventListener("resize", resize);
-      };
-    }
-  }, [theme]);
-
   // ==== Project link hover effect ====
   useEffect(() => {
     const links = terminalRef.current?.querySelectorAll(".project-link");
@@ -340,10 +291,6 @@ He enjoys turning ideas into reality with world-class frontend development.`;
 
   return (
     <div className={`terminal-container theme-${theme}`}>
-      {theme === "matrix" && (
-        <canvas ref={matrixCanvasRef} className="matrix-bg"></canvas>
-      )}
-
       <div className={`terminal-wrapper ${theme}`} ref={terminalRef}>
         {theme === "hacker" && <div className="terminal-glitch"></div>}
         {lines.map((line, index) => (
