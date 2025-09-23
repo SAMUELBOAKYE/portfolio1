@@ -1,4 +1,4 @@
 [build]
   base = "RealPort"
   command = "npm run build"
-  publish = "RealPort/dist"
+  publish = "dist"
