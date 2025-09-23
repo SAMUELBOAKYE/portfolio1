@@ -1,0 +1,122 @@
+.skills-container {
+  max-width: 700px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background: linear-gradient(145deg, #0f0f0f, #1c1c1c);
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+}
+
+.skills-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #00f5ff, #00ff9d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+  animation: fadeInDown 1s ease;
+}
+
+.skills-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.skill-item {
+  opacity: 0;
+  transform: translateX(-30px);
+  animation: slideIn 0.8s ease forwards;
+}
+.skill-item:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.skill-item:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.skill-item:nth-child(3) {
+  animation-delay: 0.6s;
+}
+.skill-item:nth-child(4) {
+  animation-delay: 0.8s;
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.skill-bar {
+  height: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.skill-progress {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #00f5ff, #00ff9d, #00f5ff);
+  background-size: 300% 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 255, 157, 0.6);
+  animation: progressAnim 2s ease forwards, glowMove 3s infinite linear;
+}
+
+/* --- Animations --- */
+@keyframes progressAnim {
+  from {
+    width: 0;
+  }
+  to {
+    width: var(--final-width, 100%);
+  }
+}
+
+@keyframes glowMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 300% 50%;
+  }
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+  .skills-container {
+    padding: 1.5rem;
+  }
+  .skills-title {
+    font-size: 1.6rem;
+  }
+  .skill-header {
+    font-size: 0.9rem;
+  }
+}
