@@ -43,7 +43,7 @@ const Terminal = ({ onProjectHover, isMobile }) => {
   const commands = {
     help: { description: "Show available commands", execute: () => showHelp() },
     bio: { description: "View biography", execute: () => showBio() },
-    CV: { description: "Download my CV", execute: () => showResume() },
+    resume: { description: "Download my CV", execute: () => showResume() },
     clear: {
       description: "Clear terminal",
       execute: () => {
